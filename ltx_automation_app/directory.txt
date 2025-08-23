@@ -1,0 +1,103 @@
+.
+├── __pycache__
+│   └── rxconfig.cpython-311.pyc
+├── ~$METRICS_DB.xlsm
+├── ~$README DB.xlsm
+├── alembic
+│   ├── env.py
+│   ├── README
+│   ├── script.py.mako
+│   └── versions
+│       ├── __pycache__
+│       │   └── 0c764f3b377c_.cpython-311.pyc
+│       └── 0c764f3b377c_.py
+├── alembic.ini
+├── assets
+│   ├── __init__.py
+│   ├── favicon.ico
+│   └── placeholder.svg
+├── data
+│   └── ltx_automation.db
+├── directory.txt
+├── ltx_automation_app
+│   ├── __init__.py
+│   ├── __pycache__
+│   │   ├── __init__.cpython-311.pyc
+│   │   └── ltx_automation_app.cpython-311.pyc
+│   ├── components
+│   │   ├── __init__.py
+│   │   ├── __pycache__
+│   │   │   ├── __init__.cpython-311.pyc
+│   │   │   ├── add_instructions_modal.cpython-311.pyc
+│   │   │   └── landing_card.cpython-311.pyc
+│   │   ├── landing_card.py
+│   │   └── ltx_bench
+│   │       ├── __init__.py
+│   │       ├── __pycache__
+│   │       │   ├── __init__.cpython-311.pyc
+│   │       │   ├── file_prep_view.cpython-311.pyc
+│   │       │   ├── organization_selection.cpython-311.pyc
+│   │       │   ├── project_list.cpython-311.pyc
+│   │       │   └── project_management.cpython-311.pyc
+│   │       ├── dashboard
+│   │       │   ├── __pycache__
+│   │       │   │   └── ltx_bench_dashboard.cpython-311.pyc
+│   │       │   └── ltx_bench_dashboard.py
+│   │       ├── evaluation_library
+│   │       │   ├── __pycache__
+│   │       │   │   └── evaluation_library_view.cpython-311.pyc
+│   │       │   └── evaluation_library_view.py
+│   │       ├── file_prep_view.py
+│   │       ├── organization_selection.py
+│   │       ├── project_list.py
+│   │       └── project_management.py
+│   ├── data
+│   │   ├── __init__.py
+│   │   ├── __pycache__
+│   │   │   ├── __init__.cpython-311.pyc
+│   │   │   ├── excel_configs.cpython-311.pyc
+│   │   │   ├── metrics_catalog.cpython-311.pyc
+│   │   │   └── readme_templates.cpython-311.pyc
+│   │   ├── archived_20250820_235752
+│   │   │   ├── metrics_catalog.py
+│   │   │   └── readme_templates.py
+│   │   ├── excel_configs.py
+│   │   └── ltx_automation.db
+│   ├── database
+│   │   ├── __init__.py
+│   │   ├── __pycache__
+│   │   │   ├── __init__.cpython-311.pyc
+│   │   │   ├── database_config.cpython-311.pyc
+│   │   │   └── models.cpython-311.pyc
+│   │   ├── database_config.py
+│   │   └── models.py
+│   ├── ltx_automation_app.py
+│   ├── pages
+│   │   ├── __init__.py
+│   │   ├── __pycache__
+│   │   │   ├── __init__.cpython-311.pyc
+│   │   │   ├── ltx_bench_page.cpython-311.pyc
+│   │   │   └── placeholder_page.cpython-311.pyc
+│   │   ├── ltx_bench_page.py
+│   │   └── placeholder_page.py
+│   ├── states
+│   │   ├── __init__.py
+│   │   ├── __pycache__
+│   │   │   ├── __init__.cpython-311.pyc
+│   │   │   ├── ltx_bench_state.cpython-311.pyc
+│   │   │   └── ltx_bench_states.cpython-311.pyc
+│   │   ├── ltx_bench_state.py
+│   │   └── state.py
+│   └── utils
+│       ├── __init__.py
+│       ├── __pycache__
+│       │   ├── __init__.cpython-311.pyc
+│       │   └── excel_builder.cpython-311.pyc
+│       └── excel_builder.py
+├── METRICS_DB.xlsm
+├── README DB.xlsm
+├── requirements.txt
+├── rxconfig.py
+└── uploaded_files
+
+29 directories, 72 files
