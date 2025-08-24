@@ -228,11 +228,8 @@ class EvaluationLibraryState(rx.State):
     template_library_expanded: bool = True
     
     # Read Me Library state
-    readme_add_mode: bool = False
     selected_readme_id: str = ""
     current_readme_data: Dict[str, Any] = {}
-    new_readme_title: str = ""
-    new_readme_text: str = ""
     readme_instructions: list[dict[str, str]] = []  # Loaded from database
     
     # Edit mode state
@@ -294,14 +291,6 @@ class EvaluationLibraryState(rx.State):
         """Toggle template library expansion."""
         self.template_library_expanded = not self.template_library_expanded
     
-    @rx.event
-    def toggle_readme_add_mode(self):
-        """Toggle add mode for README."""
-        self.readme_add_mode = not self.readme_add_mode
-        if not self.readme_add_mode:
-            # Clear add form when exiting
-            self.new_readme_title = ""
-            self.new_readme_text = ""
     
     @rx.event
     def initialize_readme_library(self):
@@ -541,55 +530,11 @@ class EvaluationLibraryState(rx.State):
         """Set default/custom radio during editing."""
         self.edit_default_custom = value
     
-    @rx.event
-    def set_new_readme_title(self, value: str):
-        """Set new readme title for adding."""
-        self.new_readme_title = value
-    
-    @rx.event
-    def set_new_readme_text(self, value: str):
-        """Set new readme text for adding."""
-        self.new_readme_text = value
         
     @rx.event
     def set_edit_readme_content(self, value: str):
         """Set the readme content during editing."""
         self.edit_readme_content = value
-    
-    @rx.event
-    def add_new_readme(self):
-        """Add a new README instruction to the database."""
-        if not self.new_readme_title or not self.new_readme_text:
-            return rx.toast.error("Please provide both title and content")
-        
-        try:
-            with rx.session() as session:
-                new_readme = ReadmeInstruction(
-                    README_TITLE=self.new_readme_title,
-                    README_TXT=self.new_readme_text,
-                    EVAL_TYPE=self.selected_eval_type or "TEXT PROCESSING",
-                    SCORE_TYPE=self.selected_score_type or "1 to 5",
-                    PRE_EVAL_CONTEXT=self.selected_pre_eval or "SOURCE/TARGET",
-                    DEFAULT_IND="N",
-                    CUSTOM_IND="Y",
-                    STATUS_IND="Active"
-                )
-                session.add(new_readme)
-                session.commit()
-                
-                # Reload instructions
-                self.load_readme_instructions()
-                
-                # Clear form and exit add mode
-                self.new_readme_title = ""
-                self.new_readme_text = ""
-                self.readme_add_mode = False
-                
-                return rx.toast.success("README instruction added successfully")
-                
-        except Exception as e:
-            print(f"Error adding README: {e}")
-            return rx.toast.error("Failed to add README instruction")
     
     @rx.event
     def delete_readme(self):
@@ -604,11 +549,6 @@ class EvaluationLibraryState(rx.State):
     def edit_readme(self):
         """Enter edit mode for the selected README."""
         self.toggle_edit_mode()
-        
-    @rx.event
-    def show_add_readme_modal(self):
-        """Show the add README modal - sets add mode to True."""
-        self.readme_add_mode = True
     
     # Metrics methods
     @rx.event
@@ -662,56 +602,6 @@ class EvaluationLibraryState(rx.State):
             self.load_readme_instructions()
         elif section == "metrics" and not self.all_metrics:
             self.load_all_metrics()
-    
-    @rx.event
-    def update_eval_type(self, value: str):
-        """Update the evaluation type dropdown."""
-        self.selected_eval_type = value
-    
-    @rx.event
-    def update_score_type(self, value: str):
-        """Update the score type dropdown."""
-        self.selected_score_type = value
-    
-    @rx.event
-    def update_pre_eval(self, value: str):
-        """Update the pre-eval dropdown."""
-        self.selected_pre_eval = value
-    
-    @rx.event
-    def save_readme_instructions(self):
-        """Save README instructions from the add form."""
-        if not self.new_readme_title or not self.new_readme_text:
-            return rx.toast.error("Please provide both title and content")
-        
-        try:
-            with rx.session() as session:
-                new_readme = ReadmeInstruction(
-                    README_TITLE=self.new_readme_title,
-                    README_TXT=self.new_readme_text,
-                    EVAL_TYPE=self.selected_eval_type or "TEXT PROCESSING",
-                    SCORE_TYPE=self.selected_score_type or "1 to 5",
-                    PRE_EVAL_CONTEXT=self.selected_pre_eval or "SOURCE/TARGET",
-                    DEFAULT_IND="N",
-                    CUSTOM_IND="Y",
-                    STATUS_IND="Active"
-                )
-                session.add(new_readme)
-                session.commit()
-                
-                # Reload instructions
-                self.load_readme_instructions()
-                
-                # Clear form and exit add mode
-                self.new_readme_title = ""
-                self.new_readme_text = ""
-                self.readme_add_mode = False
-                
-                return rx.toast.success("README instruction added successfully")
-                
-        except Exception as e:
-            print(f"Error adding README: {e}")
-            return rx.toast.error("Failed to add README instruction")
     
     # Placeholder methods for sections not yet implemented
     @rx.event

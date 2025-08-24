@@ -220,15 +220,10 @@ def readme_library_view() -> rx.Component:
     Read Me Library view with proper database integration and edit mode.
     """
     return rx.el.div(
-        # Header with Add button
+        # Header (Add New Instructions button will be added here later)
         rx.el.div(
             rx.el.h2("Read Me Library", class_name="text-xl font-semibold"),
-            rx.el.button(
-                rx.icon("plus", class_name="w-4 h-4 mr-2"),
-                "Add New Instructions",
-                on_click=EvaluationLibraryState.toggle_readme_add_mode,
-                class_name="flex items-center px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700"
-            ),
+            # TODO: Add New Instructions button will be implemented with new design
             class_name="flex items-center justify-between mb-6"
         ),
         
