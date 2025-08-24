@@ -5,7 +5,8 @@ Updated Evaluation Library view with proper alignment, icons, and database integ
 
 import reflex as rx
 from ltx_automation_app.states.ltx_bench_state import EvaluationLibraryState
-
+from .add_new_readme_dialog import add_new_readme_dialog_simplified, add_option_dialog
+from .add_readme_views import add_readme_step_one, add_readme_step_two
 
 def evaluation_library_view() -> rx.Component:
     """
@@ -436,6 +437,67 @@ def readme_content_section() -> rx.Component:
                 class_name="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 resize-none disabled:bg-gray-50 disabled:cursor-not-allowed"
             ),
             class_name="mt-4"
+        )
+    )
+    
+def readme_library_section() -> rx.Component:
+    """
+    Updated Read Me Library section using view-based approach.
+    """
+    # Show different content based on current view mode
+    return rx.cond(
+        EvaluationLibraryState.readme_view_mode == "list",
+        # LIST VIEW - your existing README list interface
+        rx.el.div(
+            # Header with Add button
+            rx.el.div(
+                rx.el.h2("Read Me Library", class_name="text-xl font-semibold"),
+                rx.el.button(
+                    rx.icon("plus", class_name="w-4 h-4 mr-2"),
+                    "Add New Instructions",
+                    on_click=EvaluationLibraryState.show_add_readme_form,
+                    class_name="flex items-center px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700"
+                ),
+                class_name="flex items-center justify-between mb-6"
+            ),
+            
+            # README Selection Dropdown
+            rx.el.div(
+                rx.el.label("Select Read Me", class_name="text-sm font-medium text-gray-700 mr-3"),
+                rx.el.select(
+                    rx.el.option("Select a README template...", value=""),
+                    rx.foreach(
+                        EvaluationLibraryState.readme_instructions,
+                        lambda readme: rx.el.option(
+                            readme["title"],
+                            value=readme["id"]
+                        )
+                    ),
+                    value=EvaluationLibraryState.selected_readme_id,
+                    on_change=EvaluationLibraryState.select_readme,
+                    class_name="w-96 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
+                ),
+                class_name="flex items-center mb-6"
+            ),
+            
+            # Selected README Display/Edit
+            rx.cond(
+                EvaluationLibraryState.selected_readme_id != "",
+                readme_content_section(),  # Your existing content section
+                rx.el.div(
+                    rx.el.p(
+                        "Select a README template from the dropdown to view its contents, or click 'Add New Instructions' to create a new one.",
+                        class_name="text-gray-500 text-center py-12"
+                    ),
+                    class_name="border border-gray-200 rounded-lg bg-gray-50 min-h-[400px] flex items-center justify-center"
+                )
+            )
+        ),
+        # ADD FORM VIEW - Show step 1 or step 2 based on state
+        rx.cond(
+            EvaluationLibraryState.readme_view_mode == "add_step1",
+            add_readme_step_one(),
+            add_readme_step_two()  # This shows when readme_view_mode == "add_step2"
         )
     )
 
